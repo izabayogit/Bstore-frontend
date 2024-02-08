@@ -15,6 +15,7 @@ interface CardProps {
 
 
 const Card: React.FC<CardProps> = ({ book } ) => {
+  console.log(book)
 
 
     return (
@@ -34,7 +35,7 @@ const Card: React.FC<CardProps> = ({ book } ) => {
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-base font-bold text-gray-900 dark:text-white">$ {book.price.toString()}</span>
+            <span className="text-base font-bold text-gray-900 dark:text-white">$ {book?.price?.toString()}</span>
 
           </div>
         </div>

@@ -1,62 +1,52 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios"
 import React from "react";
-const forceUpdate = React.useCallback(() => updateState({}), []);
 
 type FilterContextProviderProps ={
   children: React.ReactNode
 }
-interface data  {
-  id: Number,
-   authorId: Number,
+interface IData  {
+  id: number,
+   authorId: number,
    coverImage: string,
-   price: Number,
-   createdAt: String,
-   tag: String,
-   title: String,
-   writer: String,
+   price: number,
+   createdAt: string,
+   tag: string,
+   title: string,
+   writer: string,
    updatedAt: string,
  }
-export const FilterContext = createContext(null)
 
-export const FilterContextProvider =({children}: FilterContextProviderProps)=>{
-  const [filterData, setFilterData]=useState<data[]>([])
-  const [newData, setNewData]=useState<data[]>([])
-  const [update, setUpdate] =useState<boolean>(false)
+export const FilterContext = createContext<{
+  filterData: IData[], callFilters: (arg:string) => void, setFilterData: (arg:IData[]) => void
+
+} | null >(null)
+
+export const FilterContextProvider: React.FC<FilterContextProviderProps> =({children})=>{
+  const [filterData, setFilterData]=useState<IData[]>([])
   
-  useEffect(() => {
-    console.log(filterData,"wwwwwwwwwww")
-    axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/books')
-    .then(response => {
-      setFilterData(response.data)
-    })
-    .catch(error => {
-      console.error(error,"....................");
-    });
-  }, []);
 
-  useEffect(() => {
- console.log(update, "updatexxxxxxxxxxxxxxx")
- console.log(filterData,";;;;;;;;;;;;;;;;;;;")
- forceUpdate()
-  }, [update]);
-
-  
   const callFilters = async (filter: string) => {
-    
-    await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/book', {
+    const { data } = await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/book', {
       params:{tag: filter}
     })
-    .then((response: object) => {
-      console.log("hallooooooo")
-      setFilterData(response.data);
-      setUpdate(!update)
-    
-    }, (error) => {
-      console.log(error);
-    });
-    console.log(filterData)
+
+    setFilterData(data)
+
   };
+
+  useEffect(() => {
+    (async () => {
+     try {
+      const { data }= await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/books')
+      setFilterData(data)
+     } catch (error) {
+      console.log(error)
+     }
+    })()
+  }, []);
+
+
 
   return (
    

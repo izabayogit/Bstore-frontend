@@ -1,22 +1,24 @@
 import React from 'react'
-interface props  {
- id: Number,
-  authorId: Number,
-  coverImage: string,
-  price: Number,
-  createdAt: String,
-  tag: String,
-  title: String,
-  writer: String,
-  updatedAt: string,
+interface CardProps { 
+  book: {
+    id: Number,
+     authorId: Number,
+     coverImage: string,
+     price: Number,
+     createdAt: String,
+     tag: String,
+     title: String,
+     writer: String,
+     updatedAt: string,
+   }
 }
 
 
-const Card: React.FC<props> = ({ book }) => {
+const Card: React.FC<CardProps> = ({ book } ) => {
 
 
     return (
-      <div key={book.id}className="w-full  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-full  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
           <img className="p-4 rounded-t-lg h-[300px] w-[100%]" src={book.coverImage} alt="product image" />
         </a>

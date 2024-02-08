@@ -2,7 +2,6 @@ import React, {useState, useContext} from 'react'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import { useMediaQuery } from 'react-responsive'
-import { FilterContextProvider } from '../context/FiliterContxt'
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -26,9 +25,7 @@ export default function Layout({children}: LayoutProps) {
         <div className=' flex  ' > 
 
           {isMobile && !isMenuOpen || !isMobile? (<div className={!isMobile?'w-[15%]  h-[100%] z-10':'w-[30%] h-auto' }style={!isMobile?{height:'100vh'}:{height:"auto"}}>
-            <FilterContextProvider>
             <Sidebar/>
-            </FilterContextProvider>
           </div>):null}
         
           <div className='w-[100%] items-center ml-4 mr-4'>

@@ -15,18 +15,23 @@ interface data  {
    updatedAt: string,
  }
 export default function Home(){
-const [data, setData]=useState<data[]>([]);
 
-const{filterData, update}= useContext(FilterContext)
-
+const context = useContext(FilterContext)
 
 useEffect(() => {
-  
-    console.log("nnnnnnnnnnnnnnnnnnnnnn")
+  console.log("Data in home component")
+},[])
+
+
+  if(!context) {
+    throw new Error('No context')
+  }
+
+  const { filterData, callFilters, setFilterData} = context;
+
 
   
-}, [update]);
-
+ 
   
   return (
     <div className=' static items-center md:ml-5 md:mr-5 lg:ml-5 lg:mr-5 grid sm:grid-cols-1 gap-4  md:grid-cols-2 md:gap-2 lg:grid-cols-4 lg:gap-4 '>

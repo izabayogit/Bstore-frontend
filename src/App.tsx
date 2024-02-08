@@ -10,15 +10,15 @@ import { FilterContextProvider } from './context/FiliterContxt';
 export default function App() {
   return (
     <div>
-      <BrowserRouter>
       <FilterContextProvider>
+      <BrowserRouter>
       <Layout>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
       </Routes>
       </Layout>
-      </FilterContextProvider>
     </BrowserRouter>
+      </FilterContextProvider>
     </div>
   )
 }

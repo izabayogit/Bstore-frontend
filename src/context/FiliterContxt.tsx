@@ -19,51 +19,26 @@ interface IData  {
    writer: string,
    updatedAt: string,
  }
+ interface ErrorAlertsProps{
+  status:number
+  error:string
+
+}
 
 export const FilterContext = createContext<{
-  filterData: IData[], callFilters: (arg:string) => void, setFilterData: (arg:IData[]) => void, ref:any , 
+  filterData: IData[], filterError: ErrorAlertsProps[], setFilterData: (arg:IData[]) => void, ref:any , isLoading: boolean,
   filter:string, setFilter: (arg:string) => void
 
 } | null >(null)
 
 export const FilterContextProvider: React.FC<FilterContextProviderProps> =({children})=>{
-  const [filterData, setFilterData]=useState<IData[]>([])
+  const [filterData, setFilterData]=useState<IData[]>()
   const [filter,setFilter] = useState('')
-  
-
-  const { ref, data } =  useBooks(filter)
-
-
-
-
-  const callFilters = async (filter: string) => {
-    if(filter === "All Categories"){
-      const { data }= await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/books')
-      setFilterData(data)
-  }else{
-    const { data } = await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/book', {
-      params:{tag: filter}
-    })
-    setFilterData(data)
-  }
-  };
-
-  useEffect(() => {
-    (async () => {
-     try {
-      const { data }= await axios.get('https://bstorebackend-2bbe1f9d2f75.herokuapp.com/api/books')
-      setFilterData(data)
-     } catch (error) {
-      console.log(error)
-     }
-    })()
-  }, []);
-
-
-
+  const [filterError, setFilterError]=useState<ErrorAlertsProps[]>([])
+  const { ref, data,errorData, isLoading } =  useBooks(filter)
   return (
    
-      <FilterContext.Provider value={{filterData:data ?? [], callFilters, setFilterData  , ref, filter,setFilter}}>
+      <FilterContext.Provider value={{filterData:data ?? [],  setFilterData, filterError: errorData ?? [], ref, isLoading, filter,setFilter}}>
               {children} 
       </FilterContext.Provider>
 

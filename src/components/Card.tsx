@@ -1,4 +1,5 @@
 import React from 'react'
+import Loading from './Loading'
 interface CardProps { 
   book: {
     id: Number,
@@ -10,14 +11,15 @@ interface CardProps {
      title: String,
      writer: String,
      updatedAt: string,
-   }
+   },
+
+
+  isLoading: boolean
 }
 
 
-const Card: React.FC<CardProps> = ({ book } ) => {
-  console.log(book)
-
-
+const Card: React.FC<CardProps> = ({ book, isLoading } ) => {
+  console.log(isLoading,".....................")
     return (
       <div className="w-full  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
@@ -36,8 +38,14 @@ const Card: React.FC<CardProps> = ({ book } ) => {
 
           <div className="flex items-center justify-between">
             <span className="text-base font-bold text-gray-900 dark:text-white">$ {book?.price?.toString()}</span>
-
+           
           </div>
+          {isLoading?(
+                <Loading/>
+            ):null
+              
+            }
+            
         </div>
       </div>
 

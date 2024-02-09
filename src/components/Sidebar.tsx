@@ -15,7 +15,7 @@ export default function Sidebar() {
     throw Error('No context')
   }
 
-  const { callFilters, setFilter } = context;
+  const { setFilter } = context;
 
 
   return (
@@ -27,7 +27,7 @@ export default function Sidebar() {
               <li key={category} className={tabIndex === index ? 'text-[#211922] font-normal pl-2 text-lg mt-3 mb-3 hover:bg-[#e5ffe5	] bg-[#e5ffe5] rounded pt-2 pb-2 hover:cursor-pointer' : 'text-[#211922] pl-2 rounded font-normal text-lg mt-3 mb-3 bg-[#fff] hover:bg-[#f7f7f7] pt-2 pb-2 hover:cursor-pointer'}
                 onClick={() => { 
                 setTab(index); 
-                setFilter(category)
+                setFilter(`&tag=${category}`)
                 }}>
                 {category}
               </li>

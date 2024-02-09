@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import { useMediaQuery } from 'react-responsive'
